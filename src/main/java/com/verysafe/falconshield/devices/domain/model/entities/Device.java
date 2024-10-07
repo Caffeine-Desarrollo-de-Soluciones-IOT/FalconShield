@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -40,6 +43,9 @@ public class Device {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private DeviceCategory category;
+
+    @OneToMany(mappedBy = "device")
+    private Set<DeviceRegistration> registrations = new HashSet<>();
 
     public Device() {}
 }
