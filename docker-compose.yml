@@ -1,24 +1,29 @@
-name: falcon-shield-keycloak-dev
+name: falcon-shield-prod
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:latest
-    container_name: keycloak-dev
+    container_name: keycloak
     restart: always
-    command: start-dev
+    command: start
     ports:
-      - 9090:8080
+      - 8081:8080
+      - 8443:8443
     environment:
       KC_DB: postgres
       KC_DB_URL: ${KC_DB_URL}
       KC_DB_USERNAME: ${DB_USERNAME}
       KC_DB_PASSWORD: ${DB_PASSWORD}
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_HOSTNAME: https://auth.falcon-shield.tech
+      KC_PROXY_HEADERS: xforwarded
+      KC_HTTP_ENABLED: true
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin_user
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin123
     networks:
-      - keycloak-network
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
+      - falcon-network
 
 networks:
-  keycloak-network:
+  falcon-network:
     driver: bridge
+
+#ejecutar:
+#docker compose -f docker-compose.yml up -d
