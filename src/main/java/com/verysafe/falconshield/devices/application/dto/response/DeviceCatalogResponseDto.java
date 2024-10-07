@@ -1,10 +1,17 @@
 package com.verysafe.falconshield.devices.application.dto.response;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-public record DeviceCatalogResponseDto(
-    String id,
-    String name,
-    String icon,
-    List<DeviceResponseDto> devices
-) {}
+@Setter
+@Getter
+public class DeviceCatalogResponseDto {
+    private String id;
+    private String name;
+    private String icon;
+    private List<DeviceResponseDto> devices;
+
+    public DeviceCatalogResponseDto() {}
+}
