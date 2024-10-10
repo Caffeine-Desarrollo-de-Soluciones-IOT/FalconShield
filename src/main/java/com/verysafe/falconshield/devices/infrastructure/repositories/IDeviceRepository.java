@@ -5,6 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface IDeviceRepository extends JpaRepository<Device, String> {
-//    List<Device> findAllByUserProfileAccountId(String accountId);
+public interface IDeviceRepository extends JpaRepository<Device, Long> {
 }
