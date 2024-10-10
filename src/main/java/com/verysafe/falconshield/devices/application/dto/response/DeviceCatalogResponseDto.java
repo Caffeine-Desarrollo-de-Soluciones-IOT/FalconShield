@@ -8,7 +8,7 @@ import java.util.List;
 @Setter
 @Getter
 public class DeviceCatalogResponseDto {
-    private String id;
+    private Long id;
     private String name;
     private String icon;
     private List<DeviceResponseDto> devices;

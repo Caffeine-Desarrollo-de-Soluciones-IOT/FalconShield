@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class UserProfileResponseDto {
-    private String id;
+    private Long id;
     private Account account;
     private String occupation;
     private String dni;

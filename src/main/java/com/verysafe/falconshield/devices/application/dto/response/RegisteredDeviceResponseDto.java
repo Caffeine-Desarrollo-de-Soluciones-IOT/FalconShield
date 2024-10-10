@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class RegisteredDeviceResponseDto {
-    private String id;
+    private Long id;
     private LocalDateTime registeredAt;
     private DeviceResponseDto device;
 

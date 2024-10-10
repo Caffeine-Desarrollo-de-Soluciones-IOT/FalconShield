@@ -39,7 +39,7 @@ public class DeviceQueriesHandler implements IDeviceQueries {
     }
 
     @Override
-    public ApiResponse<DeviceResponseDto> getDeviceById(String id) {
+    public ApiResponse<DeviceResponseDto> getDeviceById(Long id) {
         var workspace = deviceRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Device", "id", id));
         var responseData = modelMapper.map(workspace, DeviceResponseDto.class);

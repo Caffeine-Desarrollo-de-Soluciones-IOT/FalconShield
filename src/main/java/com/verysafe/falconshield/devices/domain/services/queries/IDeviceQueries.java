@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface IDeviceQueries {
     ApiResponse<List<DeviceCatalogResponseDto>> getDeviceCatalog();
-    ApiResponse<DeviceResponseDto> getDeviceById(String id);
+    ApiResponse<DeviceResponseDto> getDeviceById(Long id);
     ApiResponse<List<RegisteredDeviceResponseDto>> getRegisteredDevices(String accountId);
 }
