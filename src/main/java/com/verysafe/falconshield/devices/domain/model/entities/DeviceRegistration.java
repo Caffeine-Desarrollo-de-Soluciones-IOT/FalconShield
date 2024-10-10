@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @Table(name = "device_registrations")
 public class DeviceRegistration {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "device_id")

@@ -14,8 +14,8 @@ import java.util.Set;
 @Table(name = "user_profiles")
 public class UserProfile {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     //Hace referencia al ID de la cuenta de usuario en Keycloak
     @Column(name = "account_id", nullable = false, unique = true)
