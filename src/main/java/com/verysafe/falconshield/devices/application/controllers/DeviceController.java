@@ -36,7 +36,7 @@ public class DeviceController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<DeviceResponseDto>> getProductById(@PathVariable String id) {
+    public ResponseEntity<ApiResponse<DeviceResponseDto>> getDeviceById(@PathVariable Long id) {
         var res = deviceQueries.getDeviceById(id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
@@ -53,6 +53,15 @@ public class DeviceController {
             @RequestBody @Valid RegisterDeviceRequestDto request
     ) {
         var res = deviceCommands.registerDevice(principal.getSubject(), request);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/unregister/{id}")
+    public ResponseEntity<ApiResponse<Object>> unregisterDevice(
+            @AuthenticationPrincipal Jwt principal,
+            @PathVariable Long id
+    ) {
+        var res = deviceCommands.unregisterDevice(principal.getSubject(), id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }
