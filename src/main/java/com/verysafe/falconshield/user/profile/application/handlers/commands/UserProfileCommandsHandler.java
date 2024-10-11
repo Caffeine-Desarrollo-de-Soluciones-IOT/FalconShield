@@ -23,6 +23,10 @@ public class UserProfileCommandsHandler implements IUserProfileCommands {
             throw new CustomException(HttpStatus.BAD_REQUEST, "Error creating profile", "User Profile already exists for this account");
         }
 
+        if (userProfileRepository.findByDni(request.dni()).isPresent()) {
+            throw new CustomException(HttpStatus.BAD_REQUEST, "Error creating profile", "There is already a user with this DNI");
+        }
+
         var userProfile = new UserProfile();
         userProfile.setAccountId(accountId);
         userProfile.setDni(request.dni());

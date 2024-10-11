@@ -24,7 +24,7 @@ public class UserProfile {
     @Column()
     private String occupation;
 
-    @Column(nullable = false, length = 8)
+    @Column(nullable = false, length = 8, unique = true)
     private String dni;
 
     @OneToMany(mappedBy = "userProfile")
