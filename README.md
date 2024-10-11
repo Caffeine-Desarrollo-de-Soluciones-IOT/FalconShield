@@ -10,7 +10,7 @@ DB_PASSWORD=
 KC_DB_URL=jdbc:postgresql://<host>/falcon_shield_keycloak
 ```
 2. Run the project
-3. Go to https://falcon-shield.tech/realms/FalconShield/account and create a new user
+3. Go to https://auth.falcon-shield.tech/realms/FalconShield/account and create a new user
 4. Go to http://localhost:8080/swagger-ui/index.html and login clicking on the "Authorize" button on the top right corner
 5. Use the **"OIDC (OAuth2, implicit)" flow** to login 
 6. Set the `client_id` to "falcon-shield-client" and select all the scopes with "select all" button
