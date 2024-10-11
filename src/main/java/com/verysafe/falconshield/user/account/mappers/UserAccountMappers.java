@@ -22,7 +22,11 @@ public class UserAccountMappers {
             destination.setFirstName(source.getFirstName());
             destination.setLastName(source.getLastName());
             destination.setEmail(source.getEmail());
-            destination.setPicture(source.getAttributes() != null ? source.getAttributes().get("picture").getFirst() : null);
+            if (source.getAttributes() != null) {
+                //handle picture null
+                destination.setPicture(source.getAttributes().get("picture") != null ? source.getAttributes().get("picture").getFirst() : null);
+            }
+            //destination.setPicture(source.getAttributes() != null ? source.getAttributes().get("picture").getFirst() : null);
             destination.setEmailVerified(source.isEmailVerified());
             destination.setEnabled(source.isEnabled());
             destination.setCreatedTimestamp(LocalDateTime.ofInstant(Instant.ofEpochMilli(source.getCreatedTimestamp()), ZoneId.systemDefault()));
