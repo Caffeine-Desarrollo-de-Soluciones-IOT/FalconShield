@@ -1,4 +1,5 @@
 package com.verysafe.falconshield.areas.application.handlers.queries;
+
 import com.verysafe.falconshield.areas.application.dto.response.AreaResponseDto;
 import com.verysafe.falconshield.areas.application.dto.response.RegisteredAreaResponseDto;
 import com.verysafe.falconshield.areas.domain.services.queries.IAreaQueries;
@@ -30,9 +31,9 @@ public class AreaQueriesHandler implements IAreaQueries{
     }
 
     @Override
-    public ApiResponse <List<RegisterAreaRequestDto>> getRegisteredAreas(String propertyId){
+    public ApiResponse <List<RegisteredAreaResponseDto>> getRegisteredAreas(String propertyId){
         var areas = areaRegistrationRepository.findAllByUserProfileAccountId(propertyId);
-        var responseData = areas.stream().map(item -> modelMapper.map(item, RegisterAreaRequestDto.class)).toList();
+        var responseData = areas.stream().map(item -> modelMapper.map(item, RegisteredAreaResponseDto.class)).toList();
         return new ApiResponse<>("Ok", true, responseData);
     }
 }

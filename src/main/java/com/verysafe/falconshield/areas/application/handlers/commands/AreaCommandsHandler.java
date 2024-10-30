@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class AreaCommandsHandler implements IAreaCommands {
     private final IAreaRegistrationRepository areaRegistrationRepository;
     private final IAreaRepository areaRepository;
-    private final IPropertyRepository propertyrepository;
+    private final IPropertyRepository propertyRepository;
 
     public AreaCommandsHandler(IAreaRegistrationRepository areaRegistrationRepository, IAreaRepository areaRepository, IPropertyRepository propertyRepository) {
         this.areaRegistrationRepository = areaRegistrationRepository;
@@ -24,10 +24,10 @@ public class AreaCommandsHandler implements IAreaCommands {
         this.propertyRepository = propertyRepository;
     }
 
-    //TODO add area
+
     @Override
-    public ApiResponse<Object> registerArea(Sring accountId, RegisterAreaRequestDto request) {
-        var area = areaRepository.findByAccountId(areaId).orElseThrow(() -> new ResourceNotFoundException("Area", "areaID", areaId))
+    public ApiResponse<Object> registerArea(String propertyId, RegisterAreaRequestDto request) {
+        var property = propertyRepository.findById(propertyId).orElseThrow(() -> new ResourceNotFoundException("Property", "propertyId", propertyId));
 
 
         // Crear una nueva ara con el nombre, icono y el color del DTO 
@@ -37,7 +37,7 @@ public class AreaCommandsHandler implements IAreaCommands {
         newArea.setColor(request.color());
         var savedArea = areaRepository.save(newArea);
 
-        // Crear el registro de la propiedad asociada al usuario
+        // Crear el registro del area asociada a la propiedad
         var areaRegistration = new AreaRegistration();
         areaRegistration.setArea(savedArea);
         areaRegistration.setProperty(property);

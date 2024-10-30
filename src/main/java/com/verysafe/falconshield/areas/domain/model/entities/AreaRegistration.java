@@ -1,4 +1,6 @@
-import com.verysafe.falconshield.areas.domain.model.entities.AreaRegistration;
+package com.verysafe.falconshield.areas.domain.model.entities;
+import com.verysafe.falconshield.properties.domain.model.entities.Property;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

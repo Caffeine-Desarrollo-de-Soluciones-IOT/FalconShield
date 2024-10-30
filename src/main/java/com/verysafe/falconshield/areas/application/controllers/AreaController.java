@@ -34,8 +34,8 @@ public class AreaController {
     }
 
     @GetMapping("/registered")
-    public ResponseEntity<ApiResponse<List<RegisteredPropertyResponseDto>>> getRegisteredProperties(@AuthenticationPrincipal Jwt principal) {
-        var res = propertyQueries.getRegisteredProperties(principal.getSubject());
+    public ResponseEntity<ApiResponse<List<RegisteredAreaResponseDto>>> getRegisteredProperties(@AuthenticationPrincipal Jwt principal) {
+        var res = areaQueries.getRegisteredAreas(principal.getSubject());
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 

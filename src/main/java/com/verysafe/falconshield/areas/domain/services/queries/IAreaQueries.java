@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface IAreaQueries {
     ApiResponse<AreaResponseDto> getAreaById(Long id);
-    ApiResponse<List<RegisteredAreaResponseDto>> getRegisteredProperties(String propertyId);
+    ApiResponse<List<RegisteredAreaResponseDto>> getRegisteredAreas(String propertyId);
 }

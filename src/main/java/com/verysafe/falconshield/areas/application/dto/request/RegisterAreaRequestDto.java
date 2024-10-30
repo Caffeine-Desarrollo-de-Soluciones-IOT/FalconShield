@@ -3,7 +3,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-public record RegisterAreaRequestDto{
+public record RegisterAreaRequestDto(
     @NotNull(message = "Area ID is required")
     @Min(value = 1, message = "Area ID must be greater than 0")
     Long areaId,
@@ -15,9 +15,5 @@ public record RegisterAreaRequestDto{
     String icon,
 
     @NotEmpty(message = "Color is required" )
-    String color,
-
-    @NotNull(message = "Property ID is required")
-    @Min(value = 1, message = "Property ID must be greater than 0")
-    Long propertyId
-}
+    String color
+) {}
