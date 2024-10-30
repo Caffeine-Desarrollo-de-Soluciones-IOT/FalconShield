@@ -31,9 +31,13 @@ public class AreaQueriesHandler implements IAreaQueries{
     }
 
     @Override
-    public ApiResponse <List<RegisteredAreaResponseDto>> getRegisteredAreas(String propertyId){
-        var areas = areaRegistrationRepository.findAllByUserProfileAccountId(propertyId);
-        var responseData = areas.stream().map(item -> modelMapper.map(item, RegisteredAreaResponseDto.class)).toList();
+    public ApiResponse<List<RegisteredAreaResponseDto>> getRegisteredAreas(String propertyIdString) {
+        Long propertyId = Long.parseLong(propertyIdString);
+        var areas = areaRegistrationRepository.findAllByPropertyId(propertyId);
+        var responseData = areas.stream()
+            .map(item -> modelMapper.map(item, RegisteredAreaResponseDto.class))
+            .toList();
         return new ApiResponse<>("Ok", true, responseData);
     }
+    
 }

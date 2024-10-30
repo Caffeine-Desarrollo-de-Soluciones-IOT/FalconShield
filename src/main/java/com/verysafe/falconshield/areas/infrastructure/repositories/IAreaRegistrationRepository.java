@@ -6,5 +6,5 @@ import java.util.List;
 
 @Repository
 public interface IAreaRegistrationRepository extends JpaRepository<AreaRegistration, Long>{
-    List<AreaRegistration> findAllByUserProfileAccountId(String accountId);
+    List<AreaRegistration> findAllByPropertyId(long propertyId);
 }

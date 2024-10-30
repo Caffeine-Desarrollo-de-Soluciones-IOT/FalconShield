@@ -24,5 +24,5 @@ public class Area{
     private String color;
 
     @OneToMany
-    private Set <AreaRegistration> registrations = new HashSet<>();
+    private Set<AreaRegistration> registrations = new HashSet<>();
 }

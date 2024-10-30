@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @Repository
 public interface IPropertyRepository extends JpaRepository<Property, Long> {
-    Optional<Property> findById(String propertyId);
 }

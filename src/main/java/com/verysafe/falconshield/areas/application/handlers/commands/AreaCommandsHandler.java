@@ -26,23 +26,28 @@ public class AreaCommandsHandler implements IAreaCommands {
 
 
     @Override
-    public ApiResponse<Object> registerArea(String propertyId, RegisterAreaRequestDto request) {
-        var property = propertyRepository.findById(propertyId).orElseThrow(() -> new ResourceNotFoundException("Property", "propertyId", propertyId));
-
-
-        // Crear una nueva ara con el nombre, icono y el color del DTO 
+    public ApiResponse<Object> registerArea(String propertyIdString, RegisterAreaRequestDto request) {
+        // Convertir el ID de propiedad de String a Long
+        Long propertyId = Long.parseLong(propertyIdString);
+    
+        // Buscar la propiedad asociada usando su ID
+        var property = propertyRepository.findById(propertyId)
+                .orElseThrow(() -> new ResourceNotFoundException("Property", "propertyId", propertyId));
+    
+        // Crear una nueva instancia de área con los datos del DTO
         var newArea = new Area();
         newArea.setName(request.name());
         newArea.setIcon(request.icon());
         newArea.setColor(request.color());
         var savedArea = areaRepository.save(newArea);
-
-        // Crear el registro del area asociada a la propiedad
+    
+        // Crear el registro de área y asociarlo con la propiedad y el área creadas
         var areaRegistration = new AreaRegistration();
         areaRegistration.setArea(savedArea);
         areaRegistration.setProperty(property);
         areaRegistrationRepository.save(areaRegistration);
-
+    
+        // Devolver la respuesta
         return new ApiResponse<>("Area registered successfully", true, null);
     }
 

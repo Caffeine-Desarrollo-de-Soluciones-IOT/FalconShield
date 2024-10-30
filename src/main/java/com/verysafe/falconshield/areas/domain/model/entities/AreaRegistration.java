@@ -23,7 +23,6 @@ public class AreaRegistration{
     @ManyToOne
     @JoinColumn(name = "property_id")
     private Property property;
-
     //@OneToMany
     //@JoinColumn(name = "users_devices_id")
     //private UserDevice users_devices_id;
@@ -31,6 +30,6 @@ public class AreaRegistration{
     @CreationTimestamp
     private LocalDateTime registeredAt;
 
-    public AreaRegistration(){}
+    public AreaRegistration() {}
 
 }
