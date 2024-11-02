@@ -14,10 +14,10 @@ public class NotificationType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column (nullable =  false)
+    @Column(nullable =  false)
     private String type;
 
-    @OneToOne(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Notification> notifications = new HashSet<>();
 
     public NotificationType() {}

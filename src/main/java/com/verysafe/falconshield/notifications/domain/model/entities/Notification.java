@@ -22,9 +22,7 @@ public class Notification {
     @JoinColumn(name = "notifications_type_id", nullable = false)
     private NotificationType type;
 
-    @ManyToOne
-    
-    @OneToMany(mappedBy =  "notifications")
+    @OneToMany(mappedBy =  "notification")
     private Set<NotificationRegistration> registrations = new HashSet<>();
 
     public Notification() {}
