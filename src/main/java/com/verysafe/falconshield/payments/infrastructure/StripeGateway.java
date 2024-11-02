@@ -5,7 +5,9 @@ import com.stripe.model.Customer;
 import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.CustomerSearchParams;
 
-public class StripeCustomerUtil {
+public class StripeGateway {
+    public static final String FRONTEND_DOMAIN = "http://localhost:4242";
+
     public static Customer findOrCreateCustomer(String email, String name) throws StripeException {
         var params = CustomerSearchParams
                 .builder()
