@@ -4,8 +4,14 @@ import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
 import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.CustomerSearchParams;
+import org.springframework.beans.factory.annotation.Value;
 
-public class StripeCustomerUtil {
+public class StripeGateway {
+    @Value("${stripe.api.key}")
+    private static String API_KEY;
+
+    public static final String FRONTEND_DOMAIN = "http://localhost:4242";
+
     public static Customer findOrCreateCustomer(String email, String name) throws StripeException {
         var params = CustomerSearchParams
                 .builder()
