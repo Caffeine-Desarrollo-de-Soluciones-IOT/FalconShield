@@ -1,5 +1,6 @@
 package com.verysafe.falconshield.devices.domain.model.entities;
 
+import com.verysafe.falconshield.areas.domain.model.entities.Area;
 import com.verysafe.falconshield.user.profile.domain.model.entities.UserProfile;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -21,7 +22,9 @@ public class DeviceRegistration {
     @JoinColumn(name = "device_id")
     private Device device;
 
-    //TODO: Area id
+    @ManyToOne
+    @JoinColumn(name = "area_id")
+    private Area area;
 
     @ManyToOne
     @JoinColumn(name = "user_profile_id")

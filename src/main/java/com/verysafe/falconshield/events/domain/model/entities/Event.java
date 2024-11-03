@@ -1,6 +1,7 @@
 package com.verysafe.falconshield.events.domain.model.entities;
 
 import com.verysafe.falconshield.events.domain.model.enums.EEventType;
+import com.verysafe.falconshield.properties.domain.model.entities.Property;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +31,9 @@ public class Event {
     @CreationTimestamp
     private Instant timestamp;
 
-    //TODO: add propertyId
+    @ManyToOne
+    @JoinColumn(name = "property_id")
+    private Property property;
 
     public Event() {}
 }
