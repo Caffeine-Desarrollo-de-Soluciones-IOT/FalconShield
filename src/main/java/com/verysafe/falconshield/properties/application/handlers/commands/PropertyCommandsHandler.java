@@ -2,9 +2,7 @@ package com.verysafe.falconshield.properties.application.handlers.commands;
 
 import com.verysafe.falconshield.properties.application.dto.request.RegisterPropertyRequestDto;
 import com.verysafe.falconshield.properties.domain.model.entities.Property;
-import com.verysafe.falconshield.properties.domain.model.entities.PropertyRegistration;
 import com.verysafe.falconshield.properties.domain.services.commands.IPropertyCommands;
-import com.verysafe.falconshield.properties.infrastructure.repositories.IPropertyRegistrationRepository;
 import com.verysafe.falconshield.properties.infrastructure.repositories.IPropertyRepository;
 import com.verysafe.falconshield.shared.exception.CustomException;
 import com.verysafe.falconshield.shared.exception.ResourceNotFoundException;
@@ -15,17 +13,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PropertyCommandsHandler implements IPropertyCommands {
-    private final IPropertyRegistrationRepository propertyRegistrationRepository;
     private final IPropertyRepository propertyRepository;
     private final IUserProfileRepository userProfileRepository;
 
-    public PropertyCommandsHandler(IPropertyRegistrationRepository propertyRegistrationRepository, IPropertyRepository propertyRepository, IUserProfileRepository userProfileRepository) {
-        this.propertyRegistrationRepository = propertyRegistrationRepository;
+    public PropertyCommandsHandler(IPropertyRepository propertyRepository, IUserProfileRepository userProfileRepository) {
         this.propertyRepository = propertyRepository;
         this.userProfileRepository = userProfileRepository;
     }
 
-    //TODO add area
     @Override
     public ApiResponse<Object> registerProperty(String accountId, RegisterPropertyRequestDto request) {
         var userProfile = userProfileRepository.findByAccountId(accountId)
@@ -36,20 +31,15 @@ public class PropertyCommandsHandler implements IPropertyCommands {
         newProperty.setName(request.name());
         newProperty.setAddress(request.address());
         newProperty.setImageUrl(request.image_url());
-        var savedProperty = propertyRepository.save(newProperty);
-
-        // Crear el registro de la propiedad asociada al usuario
-        var propertyRegistration = new PropertyRegistration();
-        propertyRegistration.setProperty(savedProperty);
-        propertyRegistration.setUserProfile(userProfile);
-        propertyRegistrationRepository.save(propertyRegistration);
+        newProperty.setUserProfile(userProfile);
+        propertyRepository.save(newProperty);
 
         return new ApiResponse<>("Property registered successfully", true, null);
     }
 
     @Override
     public ApiResponse<Object> unregisterProperty(String accountId, Long id) {
-        var propertyRegistration = propertyRegistrationRepository.findById(id)
+        var propertyRegistration = propertyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property Registration", "id", id));
 
         //check if the property registration belongs to the user
@@ -57,7 +47,7 @@ public class PropertyCommandsHandler implements IPropertyCommands {
             throw new CustomException(HttpStatus.FORBIDDEN, "Unauthorized", "You are not authorized to unregister this property");
         }
 
-        propertyRegistrationRepository.delete(propertyRegistration);
+        propertyRepository.delete(propertyRegistration);
 
         return new ApiResponse<>("Property unregistered successfully", true, null);
     }

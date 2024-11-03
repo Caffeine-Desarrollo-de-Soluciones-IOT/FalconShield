@@ -1,9 +1,7 @@
 package com.verysafe.falconshield.properties.application.handlers.queries;
 
 import com.verysafe.falconshield.properties.application.dto.response.PropertyResponseDto;
-import com.verysafe.falconshield.properties.application.dto.response.RegisteredPropertyResponseDto;
 import com.verysafe.falconshield.properties.domain.services.queries.IPropertyQueries;
-import com.verysafe.falconshield.properties.infrastructure.repositories.IPropertyRegistrationRepository;
 import com.verysafe.falconshield.properties.infrastructure.repositories.IPropertyRepository;
 import com.verysafe.falconshield.shared.exception.ResourceNotFoundException;
 import com.verysafe.falconshield.shared.model.dto.response.ApiResponse;
@@ -16,12 +14,10 @@ import java.util.List;
 public class PropertyQueriesHandler implements IPropertyQueries {
     private final ModelMapper modelMapper;
     private final IPropertyRepository propertyRepository;
-    private final IPropertyRegistrationRepository propertyRegistrationRepository;
 
-    public PropertyQueriesHandler(ModelMapper modelMapper, IPropertyRepository propertyRepository, IPropertyRegistrationRepository propertyRegistrationRepository) {
+    public PropertyQueriesHandler(ModelMapper modelMapper, IPropertyRepository propertyRepository) {
         this.modelMapper = modelMapper;
         this.propertyRepository = propertyRepository;
-        this.propertyRegistrationRepository = propertyRegistrationRepository;
     }
 
     @Override
@@ -34,10 +30,10 @@ public class PropertyQueriesHandler implements IPropertyQueries {
     }
 
     @Override
-    public ApiResponse<List<RegisteredPropertyResponseDto>> getRegisteredProperties(String accountId) {
-        var properties = propertyRegistrationRepository.findAllByUserProfileAccountId(accountId);
+    public ApiResponse<List<PropertyResponseDto>> getProperties(String accountId) {
+        var properties = propertyRepository.findAllByUserProfileAccountId(accountId);
         var responseData = properties.stream()
-                .map(item -> modelMapper.map(item, RegisteredPropertyResponseDto.class))
+                .map(item -> modelMapper.map(item, PropertyResponseDto.class))
                 .toList();
 
         return new ApiResponse<>("Ok", true, responseData);

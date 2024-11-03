@@ -2,7 +2,6 @@ package com.verysafe.falconshield.properties.application.controllers;
 
 import com.verysafe.falconshield.properties.application.dto.request.RegisterPropertyRequestDto;
 import com.verysafe.falconshield.properties.application.dto.response.PropertyResponseDto;
-import com.verysafe.falconshield.properties.application.dto.response.RegisteredPropertyResponseDto;
 import com.verysafe.falconshield.properties.domain.services.commands.IPropertyCommands;
 import com.verysafe.falconshield.properties.domain.services.queries.IPropertyQueries;
 import com.verysafe.falconshield.shared.model.dto.response.ApiResponse;
@@ -35,8 +34,8 @@ public class PropertyController {
     }
 
     @GetMapping("/registered")
-    public ResponseEntity<ApiResponse<List<RegisteredPropertyResponseDto>>> getRegisteredProperties(@AuthenticationPrincipal Jwt principal) {
-        var res = propertyQueries.getRegisteredProperties(principal.getSubject());
+    public ResponseEntity<ApiResponse<List<PropertyResponseDto>>> getProperties(@AuthenticationPrincipal Jwt principal) {
+        var res = propertyQueries.getProperties(principal.getSubject());
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
