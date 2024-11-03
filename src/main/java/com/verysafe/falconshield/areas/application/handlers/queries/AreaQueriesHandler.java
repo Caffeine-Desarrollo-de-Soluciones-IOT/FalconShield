@@ -1,9 +1,7 @@
 package com.verysafe.falconshield.areas.application.handlers.queries;
 
 import com.verysafe.falconshield.areas.application.dto.response.AreaResponseDto;
-import com.verysafe.falconshield.areas.application.dto.response.RegisteredAreaResponseDto;
 import com.verysafe.falconshield.areas.domain.services.queries.IAreaQueries;
-import com.verysafe.falconshield.areas.infrastructure.repositories.IAreaRegistrationRepository;
 import com.verysafe.falconshield.areas.infrastructure.repositories.IAreaRepository;
 import com.verysafe.falconshield.shared.exception.ResourceNotFoundException;
 import com.verysafe.falconshield.shared.model.dto.response.ApiResponse;
@@ -15,29 +13,26 @@ import java.util.List;
 public class AreaQueriesHandler implements IAreaQueries{
     private final ModelMapper modelMapper;
     private final IAreaRepository areaRepository;
-    private final IAreaRegistrationRepository areaRegistrationRepository;
 
-    public AreaQueriesHandler(ModelMapper modelMapper, IAreaRepository areaRepository, IAreaRegistrationRepository areaRegistrationRepository){
+    public AreaQueriesHandler(ModelMapper modelMapper, IAreaRepository areaRepository){
         this.modelMapper = modelMapper;
         this.areaRepository = areaRepository;
-        this.areaRegistrationRepository = areaRegistrationRepository;
     }
 
     @Override
-    public ApiResponse<AreaResponseDto> getAreaById(Long id){
-        var workspace = areaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Area","id", id));
-        var responseData = modelMapper.map(workspace, AreaResponseDto.class);
+    public ApiResponse<AreaResponseDto> getAreaById(long id){
+        var area = areaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Area","id", id));
+        var responseData = modelMapper.map(area, AreaResponseDto.class);
         return new ApiResponse<>("Ok", true, responseData);
     }
 
     @Override
-    public ApiResponse<List<RegisteredAreaResponseDto>> getRegisteredAreas(String propertyIdString) {
-        Long propertyId = Long.parseLong(propertyIdString);
-        var areas = areaRegistrationRepository.findAllByPropertyId(propertyId);
+    public ApiResponse<List<AreaResponseDto>> getAreasByPropertyId(long propertyId) {
+        var areas = areaRepository.findAllByPropertyId(propertyId);
         var responseData = areas.stream()
-            .map(item -> modelMapper.map(item, RegisteredAreaResponseDto.class))
+            .map(item -> modelMapper.map(item, AreaResponseDto.class))
             .toList();
         return new ApiResponse<>("Ok", true, responseData);
     }
-    
 }

@@ -1,7 +1,6 @@
 package com.verysafe.falconshield.areas.application.controllers;
 import com.verysafe.falconshield.areas.application.dto.request.RegisterAreaRequestDto;
 import com.verysafe.falconshield.areas.application.dto.response.AreaResponseDto;
-import com.verysafe.falconshield.areas.application.dto.response.RegisteredAreaResponseDto;
 import com.verysafe.falconshield.areas.domain.services.commands.IAreaCommands;
 import com.verysafe.falconshield.areas.domain.services.queries.IAreaQueries;
 import com.verysafe.falconshield.shared.model.dto.response.ApiResponse;
@@ -9,8 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,32 +25,29 @@ public class AreaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<AreaResponseDto>> getAreaById(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<AreaResponseDto>> getAreaById(@PathVariable long id) {
         var res = areaQueries.getAreaById(id);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @GetMapping("/registered")
-    public ResponseEntity<ApiResponse<List<RegisteredAreaResponseDto>>> getRegisteredAreas(@AuthenticationPrincipal Jwt principal) {
-        var res = areaQueries.getRegisteredAreas(principal.getSubject());
+    @GetMapping("/all/{propertyId}")
+    public ResponseEntity<ApiResponse<List<AreaResponseDto>>> getRegisteredAreas(@PathVariable long propertyId) {
+        var res = areaQueries.getAreasByPropertyId(propertyId);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/register/{propertyId}")
     public ResponseEntity<ApiResponse<Object>> registerArea(
-            @AuthenticationPrincipal Jwt principal,
+            @PathVariable long propertyId,
             @RequestBody @Valid RegisterAreaRequestDto request
     ) {
-        var res = areaCommands.registerArea(principal.getSubject(), request);
+        var res = areaCommands.registerArea(propertyId, request);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
-    @DeleteMapping("/unregister/{id}")
-    public ResponseEntity<ApiResponse<Object>> unregisterArea(
-            @AuthenticationPrincipal Jwt principal,
-            @PathVariable Long id
-    ) {
-        var res = areaCommands.unregisterArea(principal.getSubject(), id);
+    @DeleteMapping("/unregister/{areaId}")
+    public ResponseEntity<ApiResponse<Object>> unregisterArea(@PathVariable long areaId) {
+        var res = areaCommands.unregisterArea(areaId);
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 }
