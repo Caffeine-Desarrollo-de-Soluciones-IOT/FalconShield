@@ -28,16 +28,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
         http.cors(Customizer.withDefaults());
-
-        http.exceptionHandling(exception -> exception
-            .authenticationEntryPoint((request, response, authException) -> {
-                response.sendError(401, authException.getMessage());
-            })
-            .accessDeniedHandler((request, response, accessDeniedException) -> {
-                response.sendError(403, accessDeniedException.getMessage());
-            })
-        );
-
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http.authorizeHttpRequests(authorize -> {
