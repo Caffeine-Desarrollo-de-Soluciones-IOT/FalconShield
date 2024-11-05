@@ -13,7 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .allowedOrigins(
                         "http://localhost:5173",
                         "http://localhost:8080",
-                        "https://falconshield-dashboard.vercel.app",
+                        "https://falcon-shield-web-kizx.vercel.app",
                         "https://falconshield.onrender.com",
                         "https://api.falcon-shield.tech"
                 )
