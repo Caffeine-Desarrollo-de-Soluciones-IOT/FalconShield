@@ -30,7 +30,7 @@ public class PropertyCommandsHandler implements IPropertyCommands {
         var newProperty = new Property();
         newProperty.setName(request.name());
         newProperty.setAddress(request.address());
-        newProperty.setImageUrl(request.image_url());
+        newProperty.setImageUrl(request.imageUrl());
         newProperty.setUserProfile(userProfile);
         propertyRepository.save(newProperty);
 
