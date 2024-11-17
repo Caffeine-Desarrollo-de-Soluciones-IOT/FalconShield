@@ -56,4 +56,14 @@ public class DeviceQueriesHandler implements IDeviceQueries {
 
         return new ApiResponse<>("Ok", true, responseData);
     }
+
+    @Override
+    public ApiResponse<List<RegisteredDeviceResponseDto>> getRegisteredDevicesByAreaId(String accountId, long areaId) {
+        var devices = deviceRegistrationRepository.findAllByUserProfileAccountIdAndAreaId(accountId, areaId);
+        var responseData = devices.stream()
+                .map(item -> modelMapper.map(item, RegisteredDeviceResponseDto.class))
+                .toList();
+
+        return new ApiResponse<>("Ok", true, responseData);
+    }
 }
