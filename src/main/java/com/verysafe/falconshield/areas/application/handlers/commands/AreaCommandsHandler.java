@@ -38,6 +38,19 @@ public class AreaCommandsHandler implements IAreaCommands {
     }
 
     @Override
+    public ApiResponse<Object> updateArea(long areaId, RegisterAreaRequestDto request) {
+        var area = areaRepository.findById(areaId)
+                .orElseThrow(() -> new ResourceNotFoundException("Area", "id", areaId));
+
+        area.setName(request.name() != null ? request.name() : area.getName());
+        area.setIcon(request.icon() != null ? request.icon() : area.getIcon());
+        area.setColor(request.color() != null ? request.color() : area.getColor());
+        areaRepository.save(area);
+
+        return new ApiResponse<>("Area updated successfully", true, null);
+    }
+
+    @Override
     public ApiResponse<Object> unregisterArea(long areaId) {
         var areaRegistration = areaRepository.findById(areaId)
                 .orElseThrow(() -> new ResourceNotFoundException("Area Registration", "id", areaId));

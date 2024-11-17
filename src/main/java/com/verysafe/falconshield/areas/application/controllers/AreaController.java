@@ -45,6 +45,15 @@ public class AreaController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @PutMapping("/update/{areaId}")
+    public ResponseEntity<ApiResponse<Object>> updateArea(
+            @PathVariable long areaId,
+            @RequestBody RegisterAreaRequestDto request
+    ) {
+        var res = areaCommands.updateArea(areaId, request);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
     @DeleteMapping("/unregister/{areaId}")
     public ResponseEntity<ApiResponse<Object>> unregisterArea(@PathVariable long areaId) {
         var res = areaCommands.unregisterArea(areaId);
