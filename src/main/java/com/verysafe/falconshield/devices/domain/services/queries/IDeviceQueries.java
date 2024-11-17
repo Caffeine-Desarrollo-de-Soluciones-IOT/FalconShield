@@ -11,4 +11,5 @@ public interface IDeviceQueries {
     ApiResponse<List<DeviceCatalogResponseDto>> getDeviceCatalog();
     ApiResponse<DeviceResponseDto> getDeviceById(Long id);
     ApiResponse<List<RegisteredDeviceResponseDto>> getRegisteredDevices(String accountId);
+    ApiResponse<List<RegisteredDeviceResponseDto>> getRegisteredDevicesByAreaId(String accountId, long areaId);
 }

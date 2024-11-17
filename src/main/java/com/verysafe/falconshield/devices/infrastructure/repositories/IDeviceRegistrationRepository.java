@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface IDeviceRegistrationRepository extends JpaRepository<DeviceRegistration, Long> {
     List<DeviceRegistration> findAllByUserProfileAccountId(String accountId);
+    List<DeviceRegistration> findAllByUserProfileAccountIdAndAreaId(String accountId, long areaId);
 }

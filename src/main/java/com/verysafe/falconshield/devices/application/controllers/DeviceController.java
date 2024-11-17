@@ -47,6 +47,15 @@ public class DeviceController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @GetMapping("/registered/{areaId}")
+    public ResponseEntity<ApiResponse<List<RegisteredDeviceResponseDto>>> getRegisteredDevicesForArea(
+            @AuthenticationPrincipal Jwt principal,
+            @PathVariable long areaId
+    ) {
+        var res = deviceQueries.getRegisteredDevicesByAreaId(principal.getSubject(), areaId);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<Object>> registerDevice(
             @AuthenticationPrincipal Jwt principal,
