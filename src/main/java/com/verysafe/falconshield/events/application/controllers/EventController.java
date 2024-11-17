@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,6 +31,12 @@ public class EventController {
     public ResponseEntity<ApiResponse<Void>> createEvent(@RequestBody @Valid EventRequestDto request) {
         var res = eventCommands.createEvent(request);
         return new ResponseEntity<>(res, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse<List<EventResponseDto>>> getAllEvents(@AuthenticationPrincipal Jwt principal) {
+        var res = eventQueries.getAllEvents(principal.getSubject());
+        return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
     @GetMapping("/all/{propertyId}")
