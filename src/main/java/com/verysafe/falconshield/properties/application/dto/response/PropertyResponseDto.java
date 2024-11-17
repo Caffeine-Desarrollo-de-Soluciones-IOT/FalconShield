@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+/**
+ * DTO for {@link com.verysafe.falconshield.properties.domain.model.entities.Property}
+ */
 @Getter
 @Setter
 public class PropertyResponseDto {
