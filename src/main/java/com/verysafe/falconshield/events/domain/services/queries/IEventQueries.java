@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IEventQueries {
     ApiResponse<List<EventResponseDto>> getEventsByPropertyId(long propertyId);
+    ApiResponse<List<EventResponseDto>> getAllEvents(String accountId);
 }

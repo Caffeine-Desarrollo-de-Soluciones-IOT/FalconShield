@@ -34,4 +34,13 @@ public class EventQueriesHandler implements IEventQueries {
                 .toList();
         return new ApiResponse<>("Ok", true, res);
     }
+
+    @Override
+    public ApiResponse<List<EventResponseDto>> getAllEvents(String accountId) {
+        var events = eventRepository.findAllByPropertyUserProfileAccountId(accountId);
+        var res = events.stream()
+                .map(event -> modelMapper.map(event, EventResponseDto.class))
+                .toList();
+        return new ApiResponse<>("Ok", true, res);
+    }
 }

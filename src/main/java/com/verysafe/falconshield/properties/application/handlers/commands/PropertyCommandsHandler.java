@@ -38,6 +38,19 @@ public class PropertyCommandsHandler implements IPropertyCommands {
     }
 
     @Override
+    public ApiResponse<Object> updateProperty(long id, RegisterPropertyRequestDto request) {
+        var property = propertyRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Property", "id", id));
+
+        property.setName(request.name() != null ? request.name() : property.getName());
+        property.setAddress(request.address() != null ? request.address() : property.getAddress());
+        property.setImageUrl(request.imageUrl() != null ? request.imageUrl() : property.getImageUrl());
+        propertyRepository.save(property);
+
+        return new ApiResponse<>("Property updated successfully", true, null);
+    }
+
+    @Override
     public ApiResponse<Object> unregisterProperty(String accountId, Long id) {
         var propertyRegistration = propertyRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Property Registration", "id", id));

@@ -48,6 +48,15 @@ public class PropertyController {
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<ApiResponse<Object>> updateProperty(
+            @PathVariable long id,
+            @RequestBody RegisterPropertyRequestDto request
+    ) {
+        var res = propertyCommands.updateProperty(id, request);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
     @DeleteMapping("/unregister/{id}")
     public ResponseEntity<ApiResponse<Object>> unregisterProperty(
             @AuthenticationPrincipal Jwt principal,

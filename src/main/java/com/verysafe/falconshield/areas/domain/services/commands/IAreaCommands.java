@@ -4,5 +4,6 @@ import com.verysafe.falconshield.shared.model.dto.response.ApiResponse;
 
 public interface IAreaCommands {
     ApiResponse<Object> registerArea(long propertyId, RegisterAreaRequestDto request);
+    ApiResponse<Object> updateArea(long areaId, RegisterAreaRequestDto request);
     ApiResponse<Object> unregisterArea(long areaId);
 }
