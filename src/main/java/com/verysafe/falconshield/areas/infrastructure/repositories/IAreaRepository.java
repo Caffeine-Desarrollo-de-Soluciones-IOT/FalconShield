@@ -8,4 +8,5 @@ import java.util.List;
 @Repository
 public interface IAreaRepository extends JpaRepository<Area, Long>{
     List<Area> findAllByPropertyId(long propertyId);
+    List<Area> findAllByPropertyUserProfileAccountId(String accountId);
 }
