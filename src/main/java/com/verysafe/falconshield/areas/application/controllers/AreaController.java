@@ -8,6 +8,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,6 +29,12 @@ public class AreaController {
     @GetMapping("/{id}")
     public ResponseEntity<ApiResponse<AreaResponseDto>> getAreaById(@PathVariable long id) {
         var res = areaQueries.getAreaById(id);
+        return new ResponseEntity<>(res, HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<ApiResponse<List<AreaResponseDto>>> getAllAreasByAccountId(@AuthenticationPrincipal Jwt jwt) {
+        var res = areaQueries.getAllAreas(jwt.getSubject());
         return new ResponseEntity<>(res, HttpStatus.OK);
     }
 
