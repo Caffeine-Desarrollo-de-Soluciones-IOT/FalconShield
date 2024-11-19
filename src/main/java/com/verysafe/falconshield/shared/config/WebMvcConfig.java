@@ -15,7 +15,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "http://localhost:8080",
                         "https://falcon-shield-web-kizx.vercel.app",
                         "https://falconshield.onrender.com",
-                        "https://api.falcon-shield.tech"
+                        "https://api.falcon-shield.tech",
+                        "https://falcon-shield.tech"
                 )
                 .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                 .allowedHeaders("*")
