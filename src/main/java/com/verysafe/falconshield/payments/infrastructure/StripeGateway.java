@@ -6,7 +6,7 @@ import com.stripe.param.CustomerCreateParams;
 import com.stripe.param.CustomerSearchParams;
 
 public class StripeGateway {
-    public static final String FRONTEND_DOMAIN = "https://falcon-shield-web-kizx.vercel.app";
+    public static final String FRONTEND_DOMAIN = "https://falcon-shield.tech/pricing";
 
     public static Customer findOrCreateCustomer(String email, String name) throws StripeException {
         var params = CustomerSearchParams
